@@ -10,6 +10,11 @@ const VERIFY_TOKEN = process.env.VERIFY_TOKEN;
 const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
 const PORT = process.env.PORT || 3000;
 
+// Health check
+app.get('/', (req, res) => {
+  res.send('Messenger webhook server is running.');
+});
+
 // Webhook verification — Facebook sends GET with hub.* params
 app.get('/webhook', (req, res) => {
   const mode = req.query['hub.mode'];
