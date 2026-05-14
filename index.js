@@ -22,6 +22,12 @@ app.get('/', (req, res) => {
   res.send('Messenger webhook server is running. Visit <a href="/logs">/logs</a> to see events.');
 });
 
+// Allow Facebook crawler
+app.get('/robots.txt', (req, res) => {
+  res.type('text/plain');
+  res.send('User-agent: *\nAllow: /\n\nUser-agent: facebookexternalhit\nAllow: /');
+});
+
 // Live logs viewer
 app.get('/logs', (req, res) => {
   const rows = eventLog.length
