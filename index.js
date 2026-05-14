@@ -100,7 +100,9 @@ app.post('/webhook', (req, res) => {
     events.forEach(event => {
       const senderId = event.sender.id;
 
-      if (event.message) {
+      if (event.message && event.message.is_echo) {
+        addLog('message_echo', { senderId, message: event.message });
+      } else if (event.message) {
         addLog('message', { senderId, message: event.message });
         handleMessage(senderId, event.message);
       } else if (event.postback) {
